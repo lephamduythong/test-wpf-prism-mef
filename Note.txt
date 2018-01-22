@@ -1,0 +1,43 @@
+Bootstrapper.cs
+	protected override IModuleCatalog CreateModuleCatalog()
+	protected override void ConfigureAggregateCatalog()
+	protected override DependencyObject CreateShell()
+	protected override void InitializeShell()
+	
+ModuleAModule.cs
+	public void Initialize()
+		[ModuleExport(typeof(ModuleAModule), InitializationMode = InitializationMode.OnDemand)]: not load first
+		[ModuleExport(typeof(ModuleA), DependsOnModuleNames = new string[] { "ModuleD" })]
+		
+View
+	DataContext
+	
+ViewModel, Model
+	[I]INotifyPropertyChanged
+	[I]INotifyCollectionChanged
+	[I]IDataErrorInfo
+	[I]INotifyDataErrorInfo
+	
+	
+[I]IRegionManager
+[I]IModuleCatalog
+[I]IActiveAware
+
+Nghiên cứu: RegionContext
+
+[I]IApplicationCommands -> own define
+
+
+[I]BindableBase
+SetProperty
+
+<TextBlock 
+	Grid.Row="0"
+	Style="{StaticResource QuestionLabelStyle}">
+	
+	<Run Text="What is your favorite " />
+	<Run x:Name="ColorRun"
+		 Text="color"
+		  Foreground="{Binding Questionnaire.FavoriteColor,TargetNullValue=Black}" />
+	<Run Text="?" />
+</TextBlock>

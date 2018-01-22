@@ -1,0 +1,36 @@
+﻿<Window x:Class="DemoTest1.Shell"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DemoTest1"
+        mc:Ignorable="d"
+        Title="{Binding Title, Mode=TwoWay}" 
+        Height="600" 
+        Width="800"
+        xmlns:prism="http://www.codeplex.com/prism"
+        xmlns:inf="clr-namespace:DemoTest1.Infrastructure;assembly=DemoTest1.Infrastructure"
+        >
+    <DockPanel LastChildFill="True">
+        <!--<ContentControl DockPanel.Dock="Left" Width="250" prism:RegionManager.RegionName="{x:Static inf:Constants+RegionNames.ToolbarRegion}"/>-->
+
+        <StackPanel>
+            <Button Content="Load Module A" Height="200" Click="Button_Click">
+            </Button>
+            <Button IsEnabled="False" Height="200">Unload module A</Button>
+        </StackPanel>
+
+        <StackPanel>
+            <ItemsControl DockPanel.Dock="Left" Width="250" prism:RegionManager.RegionName="{x:Static inf:Constants+RegionNames.ToolbarRegion}" />
+        </StackPanel>
+        
+        <StackPanel>
+            <ContentControl prism:RegionManager.RegionName="{x:Static inf:Constants+RegionNames.ContentRegion}" />
+            
+        </StackPanel>
+
+        <StackPanel>
+            <ContentControl prism:RegionManager.RegionName="{x:Static inf:Constants+RegionNames.ExtraRegion}" />
+        </StackPanel>
+    </DockPanel>
+</Window>
