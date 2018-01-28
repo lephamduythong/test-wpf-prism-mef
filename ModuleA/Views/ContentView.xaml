@@ -31,7 +31,7 @@
         <Button Command="{Binding ExecuteGenericDelegateCommand}" CommandParameter="Passed Parameter" Content="DelegateCommand Generic" Margin="10"/>
 
         <Button Command="{Binding SendMessageCommand}" Content="Send Message" Margin="5"/>
-
-        <TextBlock Text="{Binding Content}" Margin="10" FontSize="22"/>
+        
+        
     </StackPanel>
 </UserControl>

@@ -11,6 +11,23 @@
         xmlns:prism="http://www.codeplex.com/prism"
         xmlns:inf="clr-namespace:DemoTest1.Infrastructure;assembly=DemoTest1.Infrastructure"
         >
+    <Window.Resources>
+        <ControlTemplate x:Key="ErrorTemplate">
+            <DockPanel LastChildFill="True">
+                <Border BorderBrush="Red" BorderThickness="1">
+                    <AdornedElementPlaceholder />
+                </Border>
+            </DockPanel>
+        </ControlTemplate>
+        <Style TargetType="TextBox">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"
+                Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <DockPanel LastChildFill="True">
         <!--<ContentControl DockPanel.Dock="Left" Width="250" prism:RegionManager.RegionName="{x:Static inf:Constants+RegionNames.ToolbarRegion}"/>-->
 
@@ -31,6 +48,30 @@
 
         <StackPanel>
             <ContentControl prism:RegionManager.RegionName="{x:Static inf:Constants+RegionNames.ExtraRegion}" />
+        </StackPanel>
+
+        <!-- Validation zone -->
+        <StackPanel>
+            <TextBlock Text="{Binding Content}" Margin="10" FontSize="22"/>
+
+            <TextBox Height="23" Name="textBox1" Margin="107,24,0,116" HorizontalAlignment="Left" Width="236"
+            Text="{Binding ValidateInputText, 
+                Mode=TwoWay, 
+                ValidatesOnDataErrors=True, 
+                NotifyOnValidationError=True, 
+                ValidatesOnExceptions=True}"
+            Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+
+            <TextBox Height="23" Name="textBox2" Margin="107,53,0,87" HorizontalAlignment="Left" Width="236"
+        Text="{Binding Age, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True, ValidatesOnExceptions=True}"
+        Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+
+            <Button Content="Validate" Height="23" HorizontalAlignment="Left" Margin="107,82,0,0" Name="button1"
+        Command="{Binding ValidateInputCommand}" VerticalAlignment="Top" Width="75" />
+
+            <Label Content="Name" Height="28" HorizontalAlignment="Left" Margin="25,19,0,0" Name="label1" VerticalAlignment="Top" />
+
+            <Label Content="Age" Height="28" HorizontalAlignment="Left" Margin="25,48,0,0" Name="label2" VerticalAlignment="Top" />
         </StackPanel>
     </DockPanel>
 </Window>

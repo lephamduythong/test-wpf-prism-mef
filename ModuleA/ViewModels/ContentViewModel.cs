@@ -9,6 +9,7 @@ using Prism.Mvvm;
 using Prism.Regions;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Diagnostics;
 using System.Linq;
@@ -94,13 +95,11 @@ namespace ModuleA.ViewModels
         }
 
         public ICommand TestCommand => new DelegateCommand(this.Test);
-            // .ObservesProperty(() => Content);
-            
+        // .ObservesProperty(() => Content);
+
         // IApplicationCurrentInstance
 
         private string _content;
-
-        
 
         public string Content {
             get
@@ -136,5 +135,7 @@ namespace ModuleA.ViewModels
         {
             _eventAggregator.GetEvent<MessageSentEvent>().Publish(Content);
         }
+
+        
     }
 }
