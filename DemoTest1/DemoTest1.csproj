@@ -79,7 +79,15 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ShellViewModel.cs" />
+    <Compile Include="Views\CustomPopupView.xaml.cs">
+      <DependentUpon>CustomPopupView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\IInteractionRequestAwares.cs" />
     <Page Include="Shell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CustomPopupView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -47,6 +47,9 @@ namespace DemoTest1
 
             ConfirmationRequest = new InteractionRequest<IConfirmation>();
             ConfirmationCommand = new DelegateCommand(RaiseConfirmation);
+
+            CustomPopupRequest = new InteractionRequest<INotification>();
+            CustomPopupCommand = new DelegateCommand(RaiseCustomPopup);
         }
 
         private void TitleInputChanged(string message)
@@ -125,6 +128,9 @@ namespace DemoTest1
         public InteractionRequest<IConfirmation> ConfirmationRequest { get; set; }
         public DelegateCommand ConfirmationCommand { get; set; }
 
+        public InteractionRequest<INotification> CustomPopupRequest { get; set; }
+        public DelegateCommand CustomPopupCommand { get; set; }
+
         void RaiseNotification()
         {
             NotificationRequest.Raise(
@@ -143,6 +149,18 @@ namespace DemoTest1
                     Content = "Confirmation Message"
                 }, r => Title = r.Confirmed ? "Confirmed" : "Not Confirmed");
         }
+
+       void RaiseCustomPopup()
+        {
+            CustomPopupRequest.Raise(
+                new Notification
+                {
+                    Title = "Custom Popup",
+                    Content = "Custom Popup Message "
+                }, 
+                r => Title = "Good to go");
+        }
+
     }
 
     class RelayCommand : ICommand
