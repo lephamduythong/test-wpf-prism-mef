@@ -32,9 +32,11 @@
         <!--<ContentControl DockPanel.Dock="Left" Width="250" prism:RegionManager.RegionName="{x:Static inf:Constants+RegionNames.ToolbarRegion}"/>-->
 
         <StackPanel>
-            <Button Content="Load Module A" Height="200" Click="Button_Click">
+            <Button Content="Load Module A" Height="100" Click="Button_Click">
             </Button>
-            <Button IsEnabled="False" Height="200">Unload module A</Button>
+            <Button IsEnabled="False" Height="100">Unload module A</Button>
+            <Button Height="100" Command="{Binding NavigateCommand}" CommandParameter="ContentView" Margin="5">Navigate to ContentView</Button>
+            <Button Height="100" Command="{Binding NavigateCommand}" CommandParameter="NavigationContentView" Margin="5">Navigate to NavigationContentView</Button>
         </StackPanel>
 
         <StackPanel>
@@ -43,7 +45,6 @@
         
         <StackPanel>
             <ContentControl prism:RegionManager.RegionName="{x:Static inf:Constants+RegionNames.ContentRegion}" />
-            
         </StackPanel>
 
         <StackPanel>
@@ -51,7 +52,7 @@
         </StackPanel>
 
         <!-- Validation zone -->
-        <StackPanel>
+        <!--<StackPanel>
             <TextBlock Text="{Binding Content}" Margin="10" FontSize="22"/>
 
             <TextBox Height="23" Name="textBox1" Margin="107,24,0,116" HorizontalAlignment="Left" Width="236"
@@ -72,6 +73,6 @@
             <Label Content="Name" Height="28" HorizontalAlignment="Left" Margin="25,19,0,0" Name="label1" VerticalAlignment="Top" />
 
             <Label Content="Age" Height="28" HorizontalAlignment="Left" Margin="25,48,0,0" Name="label2" VerticalAlignment="Top" />
-        </StackPanel>
+        </StackPanel>-->
     </DockPanel>
 </Window>

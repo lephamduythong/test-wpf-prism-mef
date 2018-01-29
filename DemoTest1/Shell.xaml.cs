@@ -23,8 +23,8 @@ namespace DemoTest1
     [Export]
     public partial class Shell : Window
     {
-        private ShellViewModel _shellViewModel;
         private IModuleManager _moduleManager;
+        private ShellViewModel _shellViewModel;
 
         [ImportingConstructor]
         public Shell(IModuleManager moduleManager)
@@ -34,16 +34,19 @@ namespace DemoTest1
         }
 
         [Import]
-        private ShellViewModel ViewModel
+        public ShellViewModel ViewModel
         {
             get { return _shellViewModel; }
             set
-            { DataContext = value; }
+            {
+                DataContext = value;
+                _shellViewModel = (ShellViewModel)DataContext;
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            _moduleManager.LoadModule("ModuleAModule");
+            // _moduleManager.LoadModule("ModuleAModule");
         }
     }
 }

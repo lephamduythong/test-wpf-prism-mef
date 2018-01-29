@@ -1,6 +1,10 @@
 ﻿using DemoTest1.Core.Events;
+using DemoTest1.Infrastructure;
+using ModuleA.Views;
+using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
+using Prism.Regions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,7 +17,7 @@ using System.Windows.Input;
 namespace DemoTest1
 {
     [Export]
-    public class ShellViewModel : BindableBase, IDataErrorInfo
+    public class ShellViewModel : BindableBase /*, IDataErrorInfo*/
     {
         private string _title = "XXXX";
 
@@ -25,13 +29,17 @@ namespace DemoTest1
         }
 
         IEventAggregator _eventAggregator;
+        IRegionManager _regionManager;
 
         [ImportingConstructor]
-        public ShellViewModel(IEventAggregator eventAggregator)
+        public ShellViewModel(IEventAggregator eventAggregator, IRegionManager regionManager)
         {
             _eventAggregator = eventAggregator;
+            _regionManager = regionManager;
 
             _eventAggregator.GetEvent<MessageSentEvent>().Subscribe(TitleInputChanged);
+
+            NavigateCommand = new DelegateCommand<string>(Navigate);
         }
 
         private void TitleInputChanged(string message)
@@ -41,49 +49,67 @@ namespace DemoTest1
 
         // Validation
 
-        public string ValidateInputText
-        {
-            get;
-            set;
-        }
+        //public string ValidateInputText
+        //{
+        //    get;
+        //    set;
+        //}
 
-        public ICommand ValidateInputCommand
-        {
-            get { return new RelayCommand(); }
-            set { }
-        }
+        //public ICommand ValidateInputCommand
+        //{
+        //    get { return new RelayCommand(); }
+        //    set { }
+        //}
 
-        private int age = 20;
+        //private int age = 20;
 
-        public int Age
+        //public int Age
+        //{
+        //    get { return age; }
+        //    set { age = value; }
+        //}
+        //public string this[string columnName]
+        //{
+        //    get
+        //    {
+        //        if ("ValidateInputText" == columnName)
+        //        {
+        //            if (String.IsNullOrEmpty(ValidateInputText))
+        //            {
+        //                return "Please enter a Name";
+        //            }
+        //        }
+        //        else if ("Age" == columnName)
+        //        {
+        //            if (Age < 0)
+        //            {
+        //                return "age should be greater than 0";
+        //            }
+        //        }
+        //        return "";
+        //    }
+        //}
+        //public string Error
+        //{
+        //    get { throw new NotImplementedException(); }
+        //}
+
+        public DelegateCommand<string> NavigateCommand { get; set; }
+
+        private void Navigate(string navigatePath)
         {
-            get { return age; }
-            set { age = value; }
-        }
-        public string this[string columnName]
-        {
-            get
+            if (navigatePath != null)
             {
-                if ("ValidateInputText" == columnName)
+                switch (navigatePath)
                 {
-                    if (String.IsNullOrEmpty(ValidateInputText))
-                    {
-                        return "Please enter a Name";
-                    }
+                    case "ContentView":
+                        _regionManager.RequestNavigate(Constants.RegionNames.ContentRegion, new Uri(nameof(ContentView), UriKind.Relative));
+                        break;
+                    case "NavigationContentView":
+                        _regionManager.RequestNavigate(Constants.RegionNames.ContentRegion, new Uri(nameof(NavigationContentView), UriKind.Relative));
+                        break;
                 }
-                else if ("Age" == columnName)
-                {
-                    if (Age < 0)
-                    {
-                        return "age should be greater than 0";
-                    }
-                }
-                return "";
             }
-        }
-        public string Error
-        {
-            get { throw new NotImplementedException(); }
         }
     }
 

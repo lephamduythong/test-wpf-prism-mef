@@ -15,7 +15,7 @@ using ModuleB.Views;
 
 namespace ModuleA
 {
-    [ModuleExport(typeof(ModuleAModule), InitializationMode = InitializationMode.OnDemand)]
+    [ModuleExport(typeof(ModuleAModule), InitializationMode = InitializationMode.WhenAvailable)]
     public class ModuleAModule : IModule
     {
         // [Import]
@@ -34,11 +34,12 @@ namespace ModuleA
         {
             _regionManager.RegisterViewWithRegion(Constants.RegionNames.ToolbarRegion, typeof(ToolbarView));
             _regionManager.RegisterViewWithRegion(Constants.RegionNames.ContentRegion, typeof(ContentView));
+            _regionManager.RegisterViewWithRegion(Constants.RegionNames.ContentRegion, typeof(NavigationContentView));
 
-            var contentViewRegion = _regionManager.Regions[Constants.RegionNames.ContentRegion];
-            var contentView = _serviceLocator.GetInstance(typeof(ContentView));
-            // contentViewRegion.Add(contentView);   
-            contentViewRegion.Deactivate(contentView);
+            //var contentViewRegion = _regionManager.Regions[Constants.RegionNames.ContentRegion];
+            //var contentView = _serviceLocator.GetInstance(typeof(ContentView));
+            //// contentViewRegion.Add(contentView);   
+            //contentViewRegion.Deactivate(contentView);
         }
     }
 }
