@@ -10,8 +10,9 @@
         Width="800"
         xmlns:prism="http://www.codeplex.com/prism"
         xmlns:inf="clr-namespace:DemoTest1.Infrastructure;assembly=DemoTest1.Infrastructure"
-        >
-    <Window.Resources>
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity">
+    <!--<Window.Resources>
         <ControlTemplate x:Key="ErrorTemplate">
             <DockPanel LastChildFill="True">
                 <Border BorderBrush="Red" BorderThickness="1">
@@ -29,7 +30,7 @@
         </Style>
     </Window.Resources>
     <DockPanel LastChildFill="True">
-        <!--<ContentControl DockPanel.Dock="Left" Width="250" prism:RegionManager.RegionName="{x:Static inf:Constants+RegionNames.ToolbarRegion}"/>-->
+        --><!--<ContentControl DockPanel.Dock="Left" Width="250" prism:RegionManager.RegionName="{x:Static inf:Constants+RegionNames.ToolbarRegion}"/>--><!--
 
         <StackPanel>
             <Button Content="Load Module A" Height="100" Click="Button_Click">
@@ -51,7 +52,7 @@
             <ContentControl prism:RegionManager.RegionName="{x:Static inf:Constants+RegionNames.ExtraRegion}" />
         </StackPanel>
 
-        <!-- Validation zone -->
+        --><!-- Validation zone -->
         <!--<StackPanel>
             <TextBlock Text="{Binding Content}" Margin="10" FontSize="22"/>
 
@@ -73,6 +74,19 @@
             <Label Content="Name" Height="28" HorizontalAlignment="Left" Margin="25,19,0,0" Name="label1" VerticalAlignment="Top" />
 
             <Label Content="Age" Height="28" HorizontalAlignment="Left" Margin="25,48,0,0" Name="label2" VerticalAlignment="Top" />
-        </StackPanel>-->
-    </DockPanel>
+        </StackPanel>--><!--
+    </DockPanel>-->
+    
+    <i:Interaction.Triggers>
+        <prism:InteractionRequestTrigger
+            SourceObject="{Binding NotificationRequest}" >
+            <prism:PopupWindowAction 
+                IsModal="True" 
+                CenterOverAssociatedObject="True" />
+        </prism:InteractionRequestTrigger>
+    </i:Interaction.Triggers>
+    <StackPanel>
+        <Button Margin="5" Content="Raise Default Notification" Command="{Binding NotificationCommand}" />
+        <TextBlock Text="{Binding Title}" Margin="25" HorizontalAlignment="Center" FontSize="24" />
+    </StackPanel>
 </Window>

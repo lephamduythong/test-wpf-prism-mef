@@ -3,6 +3,7 @@ using DemoTest1.Infrastructure;
 using ModuleA.Views;
 using Prism.Commands;
 using Prism.Events;
+using Prism.Interactivity.InteractionRequest;
 using Prism.Mvvm;
 using Prism.Regions;
 using System;
@@ -19,7 +20,7 @@ namespace DemoTest1
     [Export]
     public class ShellViewModel : BindableBase /*, IDataErrorInfo*/
     {
-        private string _title = "XXXX";
+        private string _title = "Hello World";
 
         public string Title { get => _title;
             set
@@ -40,6 +41,9 @@ namespace DemoTest1
             _eventAggregator.GetEvent<MessageSentEvent>().Subscribe(TitleInputChanged);
 
             NavigateCommand = new DelegateCommand<string>(Navigate);
+
+            NotificationRequest = new InteractionRequest<INotification>();
+            NotificationCommand = new DelegateCommand(RaiseNotification);
         }
 
         private void TitleInputChanged(string message)
@@ -110,6 +114,14 @@ namespace DemoTest1
                         break;
                 }
             }
+        }
+
+        public InteractionRequest<INotification> NotificationRequest { get; set; }
+        public DelegateCommand NotificationCommand { get; set; }
+
+        void RaiseNotification()
+        {
+            NotificationRequest.Raise(new Notification { Content = "Notification Message", Title = "Notification" }, r => Title = "Notified");
         }
     }
 
