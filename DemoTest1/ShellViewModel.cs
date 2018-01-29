@@ -44,6 +44,9 @@ namespace DemoTest1
 
             NotificationRequest = new InteractionRequest<INotification>();
             NotificationCommand = new DelegateCommand(RaiseNotification);
+
+            ConfirmationRequest = new InteractionRequest<IConfirmation>();
+            ConfirmationCommand = new DelegateCommand(RaiseConfirmation);
         }
 
         private void TitleInputChanged(string message)
@@ -119,9 +122,26 @@ namespace DemoTest1
         public InteractionRequest<INotification> NotificationRequest { get; set; }
         public DelegateCommand NotificationCommand { get; set; }
 
+        public InteractionRequest<IConfirmation> ConfirmationRequest { get; set; }
+        public DelegateCommand ConfirmationCommand { get; set; }
+
         void RaiseNotification()
         {
-            NotificationRequest.Raise(new Notification { Content = "Notification Message", Title = "Notification" }, r => Title = "Notified");
+            NotificationRequest.Raise(
+                new Notification {
+                    Content = "Notification Message",
+                    Title = "Notification"
+                }, r => Title = "Notified");
+        }
+
+        void RaiseConfirmation()
+        {
+            ConfirmationRequest.Raise(
+                new Confirmation
+                {
+                    Title = "Confirmation",
+                    Content = "Confirmation Message"
+                }, r => Title = r.Confirmed ? "Confirmed" : "Not Confirmed");
         }
     }
 
